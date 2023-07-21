@@ -1,0 +1,35 @@
+version: '3'
+services:
+  # Сервис для вашего Spring Boot приложения
+  myapp:
+    image: your-spring-app-image:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/library_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: gtnhjdbx963
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_THYMELEAF_PREFIX: classpath:/templates/
+      SPRING_MAIL_HOST: smtp.mail.ru
+      SPRING_MAIL_PORT: "587"
+      SPRING_MAIL_USERNAME: sedykh.maksim@mail.ru
+      SPRING_MAIL_PASSWORD: 7u2d5RM3iHkjr4gYkPdV
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+      SPRING_FREEMARKER_EXPOSE_REQUEST_ATTRIBUTES: "true"
+      PENALTY_RATE: "10.0"
+
+  # Сервис для базы данных PostgreSQL
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: library_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: gtnhjdbx963
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование читателя</title>
+</head>
+<body>
+<h1>Редактирование читателя</h1>
+<form th:action="@{'/readers/' + ${reader.id}}" method="post">
+    <label>Имя:</label>
+    <input type="text" name="name" th:value="${reader.name}" required><br>
+    <label>Email:</label>
+    <input type="email" name="email" th:value="${reader.email}" required><br>
+    <label>Телефон:</label>
+    <input type="submit" value="Сохранить">
+</form>
+</body>
+</html>

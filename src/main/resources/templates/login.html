@@ -1,0 +1,29 @@
+<title>Library</title>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>Library</h1><hr>
+<h4>Авторизация</h4>
+<!--<form action="/login" method="post">
+    Эл. почта: <input type="email" name="username"><br><br>
+    Пароль: <input type="password" name="password"><br><br>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type="submit" value="Вход"/>
+</form>-->
+<form method="post" th:action="@{/login}">
+    Эл. почта: <input type="email" name="username"><br><br>
+    Пароль: <input type="password" name="password"><br><br>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type="submit" value="Вход"/>
+</form>
+<td>
+    <!-- Форма для регистрации читателя -->
+    <form th:action="@{/registration}" method="get">
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+</td>
+<!--//<a href="/registration">Зарегистрироваться</a>-->
+</body>
+</html>

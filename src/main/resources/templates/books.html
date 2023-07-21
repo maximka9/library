@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <title>Список книг</title>
+</head>
+<body>
+<h1>Список книг</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Название</th>
+    <th>Автор</th>
+    <th>Год</th>
+    <th>Архивировать</th>
+  </tr>
+  <tr th:each="book : ${books}">
+    <td th:text="${book.id}"></td>
+    <td>
+      <span th:text="${book.title}" th:id="'title-' + ${book.id}" class="editable-field"></span>
+      <input type="text" name="title" th:value="${book.title}" th:id="'input-title-' + ${book.id}" required style="display: none;">
+    </td>
+    <td>
+      <span th:text="${book.author}" th:id="'author-' + ${book.id}" class="editable-field"></span>
+      <input type="text" name="author" th:value="${book.author}" th:id="'input-author-' + ${book.id}" required style="display: none;">
+    </td>
+    <td>
+      <span th:text="${book.year}" th:id="'year-' + ${book.id}" class="editable-field"></span>
+      <input type="number" name="year" th:value="${book.year}" th:id="'input-year-' + ${book.id}" required style="display: none;">
+    </td>
+    <td>
+      <!-- Форма для архивирования книги -->
+      <form th:action="@{'/books/archive/' + ${book.id}}" method="post" th:if="${not #request.isUserInRole('ROLE_ADMIN')}">
+        <input type="submit" value="Архивировать">
+      </form>
+    </td>
+    <td>
+      <!-- Форма для редактирования книги -->
+      <form th:action="@{'/books/' + ${book.id}}" method="get">
+        <input type="submit" value="Редактировать">
+      </form>
+    </td>
+  </tr>
+</table>
+
+<h2>Добавить новую книгу:</h2>
+<form method="post" th:action="@{/books}">
+  <label>Название:</label>
+  <input type="text" name="title" required><br>
+  <label>Автор:</label>
+  <input type="text" name="author" required><br>
+  <label>Год:</label>
+  <input type="number" name="year" required><br>
+  <input type="submit" value="Создать">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <title>Список формуляров</title>
+</head>
+<body>
+<h1>Список формуляров</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Дата выдачи</th>
+    <th>Дата возврата</th>
+    <th>Архивирован</th>
+    <th>Читатель</th>
+    <th>Книга</th>
+    <th>Действия</th>
+  </tr>
+  <tr th:each="formulary : ${formularies}">
+    <td th:text="${formulary.id}"></td>
+    <td>
+      <span th:text="${formulary.issuedDate}" th:id="'issuedDate-' + ${formulary.id}" class="editable-field"></span>
+      <input type="date" name="issuedDate" th:value="${formulary.issuedDate}" th:id="'input-issuedDate-' + ${formulary.id}" required style="display: none;">
+    </td>
+    <td>
+      <span th:text="${formulary.returnDate}" th:id="'returnDate-' + ${formulary.id}" class="editable-field"></span>
+      <input type="date" name="returnDate" th:value="${formulary.returnDate}" th:id="'input-returnDate-' + ${formulary.id}" required style="display: none;">
+    </td>
+    <td>
+      <span th:text="${formulary.archived}" th:id="'archived-' + ${formulary.id}" class="editable-field"></span>
+      <input type="checkbox" name="archived" th:checked="${formulary.archived}" th:id="'input-archived-' + ${formulary.id}" style="display: none;">
+    </td>
+    <td th:text="${formulary.reader.name}"></td>
+    <td th:text="${formulary.book.title}"></td>
+    <td>
+      <!-- Форма для редактирования формуляра -->
+      <form th:action="@{'/formulary/' + ${formulary.id}}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <!-- <label>Дата выдачи:</label>
+         <input type="date" name="issuedDate" th:value="${formulary.issuedDate}" required><br>
+         <label>Дата возврата:</label>
+         <input type="date" name="returnDate" th:value="${formulary.returnDate}" required><br>-->
+        <label>Архивирован:</label>
+        <input type="checkbox" name="archived" th:checked="${formulary.archived}"><br>
+        <input type="submit" value="Сохранить">
+      </form>
+    </td>
+  </tr>
+</table>
+
+<a th:href="@{/formulary/new}" class="btn btn-primary">Добавить новый формуляр</a>
+<a th:href="@{/formulary/report}" class="btn btn-success">Сформировать отчет</a>
+
+</body>
+</html>

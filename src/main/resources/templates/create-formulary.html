@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <title>Создание нового формуляра</title>
+</head>
+<body>
+<h1>Создание нового формуляра</h1>
+<form method="post" th:action="@{/formulary/new}" th:method="post" th:object="${newFormulary}">
+  <label>Дата выдачи:</label>
+  <input type="date" name="issuedDate" required><br>
+  <label>Дата возврата:</label>
+  <input type="date" name="returnDate" required><br>
+  <label>Читатель:</label>
+  <select name="reader.id" required>
+    <option th:each="reader : ${readers}" th:value="${reader.id}" th:text="${reader.name}"></option>
+  </select><br>
+  <label>Книга:</label>
+  <select name="book.id" required>
+    <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}"></option>
+  </select><br>
+  <input type="submit" value="Создать">
+</form>
+</body>
+</html>

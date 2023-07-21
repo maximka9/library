@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Список книг</title>
+</head>
+<body>
+<h1>Список книг</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Название</th>
+    <th>Автор</th>
+    <th>Год</th>
+  </tr>
+  <tr th:each="book : ${userBooks}">
+    <td th:text="${book.id}"></td>
+    <td th:text="${book.title}"></td>
+    <td th:text="${book.author}"></td>
+    <td th:text="${book.year}"></td>
+  </tr>
+</table>
+</body>
+</html>
